@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.maestroclientes_v1.R;
 
@@ -16,6 +17,11 @@ import com.example.maestroclientes_v1.R;
  * create an instance of this fragment.
  */
 public class FragmentClientes extends Fragment {
+
+    private Button btnAddClient;
+
+    //CRUD
+    private FragmentAgregarCliente fragmentAgregarCliente = new FragmentAgregarCliente();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +67,20 @@ public class FragmentClientes extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_clientes, container, false);
+        View view = inflater.inflate(R.layout.fragment_clientes, container, false);
+
+        //nos mandara al formulario agregar cliente
+        //lo que avanzo Santos
+        this.btnAddClient = view.findViewById(R.id.buttonFragmentAgregarCliente);
+        btnAddClient.setOnClickListener(eventAddClient);
+        return view;
     }
+
+    private View.OnClickListener eventAddClient = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frameLayout, fragmentAgregarCliente).commit();
+        }
+    };
 }
