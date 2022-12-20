@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-public class Clientes extends SQLiteOpenHelper {
+public class ClienteHelper extends SQLiteOpenHelper {
     private static final String NOMBRE_BD="clientes.bd";
     private static final int VERSION_BD=2;
 
@@ -35,7 +35,7 @@ public class Clientes extends SQLiteOpenHelper {
             ")";
 
 
-    public Clientes(@Nullable Context context) {
+    public ClienteHelper(@Nullable Context context) {
         super(context, NOMBRE_BD,null, VERSION_BD);
     }
 
