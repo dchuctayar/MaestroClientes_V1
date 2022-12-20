@@ -1,7 +1,9 @@
 package com.example.maestroclientes_v1.fragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EdgeEffect;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.maestroclientes_v1.Clientes.AdapterClientes;
@@ -25,13 +29,15 @@ import java.util.ArrayList;
  */
 public class FragmentClientes extends Fragment {
 
+    //componte para buscar cliente
+    private EditText editTextNombreCliBus;
+    private Button btnSearchClient;
 
     //por ahora string mas adelante clase Clientes
     private ArrayList<Cliente> listClientes;
     private RecyclerView recycler;
 
     private Button btnAddClient;
-    private Button btnSearchClient;
 
     //CRUD
     private FragmentAgregarCliente fragmentAgregarCliente = new FragmentAgregarCliente();
@@ -49,14 +55,6 @@ public class FragmentClientes extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentClientes.
-     */
     // TODO: Rename and change types and number of parameters
     public static FragmentClientes newInstance(String param1, String param2) {
         FragmentClientes fragment = new FragmentClientes();
@@ -82,6 +80,9 @@ public class FragmentClientes extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_clientes, container, false);
 
+        referenciarAdaptador(view);
+
+        this.editTextNombreCliBus = view.findViewById(R.id.editTextBuscarCliente); //para buscar
         //nos mandara al formulario agregar cliente
         //lo que avanzo Santos
         this.btnAddClient = view.findViewById(R.id.buttonFragmentAgregarCliente);
@@ -90,8 +91,6 @@ public class FragmentClientes extends Fragment {
         //event search
         this.btnSearchClient = view.findViewById(R.id.buttonBuscarCliente);
         this.btnSearchClient.setOnClickListener(eventSearchClient);
-
-        referenciarAdaptador(view);
 
         return view;
     }
@@ -103,15 +102,15 @@ public class FragmentClientes extends Fragment {
         //para cargar una lista vertical
         recycler.setLayoutManager(new LinearLayoutManager(getActivity(),
                 RecyclerView.VERTICAL, false));
-        //llenando datos de comunidad
+        //llenando datos de clientes
         listClientes = new ArrayList<>();
         //llenado de datos
         llenadoDatos(); //despues eliminar
 
-        //enviamos los datos al adaptador de Comunidad
+        //enviamos los datos al adaptador de Clientes
         //le damos el getActivity para que se pueda cambiar de fragment en el adapter
         AdapterClientes adapter = new AdapterClientes(listClientes, getActivity());
-        //por ultimo al recycler le enviamos el adaptador de la Comunidad
+        //por ultimo al recycler le enviamos el adaptador de la Clientes
         recycler.setAdapter(adapter);
         ///===================================
     }
@@ -124,15 +123,61 @@ public class FragmentClientes extends Fragment {
         }
     };
 
+    //buscar cliente en los elementos del recycler**********************************
     private View.OnClickListener eventSearchClient = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+
+            ArrayList<Cliente> listaClientesBuscados = new ArrayList<>();
+            String nombreBuscado = editTextNombreCliBus.getText().toString();
+
+            //print
             Toast.makeText(getActivity(), "Buscando cliente",
                     Toast.LENGTH_LONG).show();
+
+            //en caso el texto este vacio
+            if(nombreBuscado.equalsIgnoreCase("")){
+                //enviamos los datos al adaptador de Clientes
+                AdapterClientes adapter = new AdapterClientes(listClientes, getActivity());
+                //por ultimo al recycler le enviamos el adaptador de la Clientes
+                recycler.setAdapter(adapter);
+            }else{
+
+                //buscando de forma lineal==============================================
+                for (int i = 0; i < listClientes.size(); i++){
+                    if(nombreBuscado.equalsIgnoreCase(listClientes.get(i).getName()
+                            .substring(0,nombreBuscado.length()))){
+                        listaClientesBuscados.add(listClientes.get(i)); //agregandolo a nueva lista
+                    }
+                }
+                //======================================================================
+
+                //en caso de que se encontro
+                if (listaClientesBuscados.size() > 0){
+                    //enviamos los datos al adaptador de Clientes
+                    AdapterClientes adapterbuscados = new AdapterClientes(
+                            listaClientesBuscados, getActivity());
+                    //por ultimo al recycler le enviamos el adaptador de la Clientes
+                    recycler.setAdapter(adapterbuscados);
+
+                }else{
+                    //Dialogo para confirmar la eliminacion
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("No se encontro al cliente buscado. ")
+                            .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss(); //la ventana se cierra
+                                }
+                            });
+                    builder.show();
+                }
+
+            }
+
         }
     };
-
-
+    //*******************************************************************************
 
     private void llenadoDatos() {
 

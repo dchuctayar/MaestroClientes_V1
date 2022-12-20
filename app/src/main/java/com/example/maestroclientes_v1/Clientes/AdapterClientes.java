@@ -87,7 +87,7 @@ public class AdapterClientes extends RecyclerView.Adapter<AdapterClientes.ViewHo
         public void cargarDatos(Cliente cliente,
                                 FragmentActivity activity) {
             //nombre del cliente
-            this.nombreCliente.setText(cliente.name);
+            this.nombreCliente.setText(cliente.getName());
             this.itemactivity = activity;
             this.cliente = cliente;
         }
@@ -103,8 +103,8 @@ public class AdapterClientes extends RecyclerView.Adapter<AdapterClientes.ViewHo
 
 
                 fragmentModificarCliente = FragmentModificarCliente.newInstance(
-                        cliente.codigo, cliente.name, cliente.ruc,
-                        cliente.zona, cliente.tipo, cliente.estado
+                        cliente.getCodigo(), cliente.getName(), cliente.getRuc(),
+                        cliente.getZona(), cliente.getTipo(), cliente.getEstado()
                 );
 
                 //ingresamoa al fragment de editar cliente
@@ -120,7 +120,7 @@ public class AdapterClientes extends RecyclerView.Adapter<AdapterClientes.ViewHo
 
                 //Dialogo para confirmar la eliminacion
                 AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                builder.setMessage("Desea eliminar a " + cliente.name + "? ")
+                builder.setMessage("Desea eliminar a " + cliente.getName() + "? ")
                         .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
