@@ -3,13 +3,19 @@ package com.example.maestroclientes_v1.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.maestroclientes_v1.Clientes.AdapterClientes;
 import com.example.maestroclientes_v1.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,7 +24,13 @@ import com.example.maestroclientes_v1.R;
  */
 public class FragmentClientes extends Fragment {
 
+
+    //por ahora string mas adelante clase Clientes
+    private ArrayList<String> listClientes;
+    private RecyclerView recycler;
+
     private Button btnAddClient;
+    private Button btnSearchClient;
 
     //CRUD
     private FragmentAgregarCliente fragmentAgregarCliente = new FragmentAgregarCliente();
@@ -72,8 +84,35 @@ public class FragmentClientes extends Fragment {
         //nos mandara al formulario agregar cliente
         //lo que avanzo Santos
         this.btnAddClient = view.findViewById(R.id.buttonFragmentAgregarCliente);
-        btnAddClient.setOnClickListener(eventAddClient);
+        this.btnAddClient.setOnClickListener(eventAddClient);
+
+        //event search
+        this.btnSearchClient = view.findViewById(R.id.buttonBuscarCliente);
+        this.btnSearchClient.setOnClickListener(eventSearchClient);
+
+        referenciarAdaptador(view);
+
         return view;
+    }
+
+    private void referenciarAdaptador(View view) {
+        //Recycler View=======================
+        //Referenciamos el RecyclerView del layout
+        recycler = view.findViewById(R.id.recyclerClientes);
+        //para cargar una lista vertical
+        recycler.setLayoutManager(new LinearLayoutManager(getActivity(),
+                RecyclerView.VERTICAL, false));
+        //llenando datos de comunidad
+        listClientes = new ArrayList<>();
+        for (int i = 0; i < 15; i++){
+            listClientes.add("Cliente "+ (i+1));
+        }
+        //enviamos los datos al adaptador de Comunidad
+        //le damos el getActivity para que se pueda cambiar de fragment en el adapter
+        AdapterClientes adapter = new AdapterClientes(listClientes);
+        //por ultimo al recycler le enviamos el adaptador de la Comunidad
+        recycler.setAdapter(adapter);
+        ///===================================
     }
 
     private View.OnClickListener eventAddClient = new View.OnClickListener() {
@@ -81,6 +120,14 @@ public class FragmentClientes extends Fragment {
         public void onClick(View view) {
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.frameLayout, fragmentAgregarCliente).commit();
+        }
+    };
+
+    private View.OnClickListener eventSearchClient = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(getActivity(), "Buscando cliente",
+                    Toast.LENGTH_LONG).show();
         }
     };
 }

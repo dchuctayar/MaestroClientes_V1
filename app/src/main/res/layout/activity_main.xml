@@ -18,6 +18,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <Space
+            android:layout_width="15dp"
+            android:layout_height="match_parent"/>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonFragmentClientes"
             android:layout_width="wrap_content"
@@ -28,7 +32,7 @@
             android:textSize="12dp" />
 
         <Space
-            android:layout_width="15dp"
+            android:layout_width="20dp"
             android:layout_height="match_parent"/>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -41,7 +45,7 @@
             android:textSize="12dp" />
 
         <Space
-            android:layout_width="15dp"
+            android:layout_width="20dp"
             android:layout_height="match_parent"/>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -55,15 +59,23 @@
 
     </LinearLayout>
 
+    <com.example.maestroclientes_v1.View.LineaHorizontal
+        android:id="@+id/lineaHorizontal5"
+        android:layout_width="351dp"
+        android:layout_height="17dp"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="1.0" />
 
     <FrameLayout
         android:id="@+id/frameLayout"
-        android:layout_width="369dp"
-        android:layout_height="624dp"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"></FrameLayout>
 
-    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

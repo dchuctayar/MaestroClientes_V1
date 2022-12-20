@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">
+
+        <com.example.maestroclientes_v1.View.Contenedor
+            android:id="@+id/contenedor"
+            android:layout_width="308dp"
+            android:layout_height="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textNombreClienteTabla"
+            android:layout_width="182dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="12dp"
+            android:text="Cliente n"
+            app:layout_constraintBottom_toBottomOf="@+id/contenedor"
+            app:layout_constraintStart_toStartOf="@+id/contenedor"
+            app:layout_constraintTop_toTopOf="@+id/contenedor"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageButton
+            android:id="@+id/btnEditCliente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:background="@color/teal_200"
+            app:layout_constraintBottom_toBottomOf="@+id/contenedor"
+            app:layout_constraintStart_toEndOf="@+id/textNombreClienteTabla"
+            app:layout_constraintTop_toTopOf="@+id/contenedor"
+            app:layout_constraintVertical_bias="0.535"
+            app:srcCompat="@android:drawable/ic_menu_edit" />
+
+        <ImageButton
+            android:id="@+id/btnDeleteCliente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/teal_200"
+            app:layout_constraintBottom_toBottomOf="@+id/contenedor"
+            app:layout_constraintEnd_toEndOf="@+id/contenedor"
+            app:layout_constraintStart_toEndOf="@+id/btnEditCliente"
+            app:layout_constraintTop_toTopOf="@+id/contenedor"
+            app:srcCompat="@android:drawable/ic_menu_delete" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+</LinearLayout>
