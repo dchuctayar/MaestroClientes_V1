@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.maestroclientes_v1.MaestroClientes;
+import com.example.maestroclientes_v1.sqlite.Clientes;
 import com.example.maestroclientes_v1.R;
 
 /**
@@ -78,7 +78,7 @@ public class FragmentAgregarCliente extends Fragment {
         editEstado=(EditText)view.findViewById(R.id.editEstado);
         btnAgregar=(Button)view.findViewById(R.id.btnAgregar);
 
-        final MaestroClientes clientes=new MaestroClientes(getActivity());
+        final Clientes clientes=new Clientes(getActivity());
 
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
