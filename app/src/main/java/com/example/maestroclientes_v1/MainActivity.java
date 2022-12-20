@@ -8,31 +8,61 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.maestroclientes_v1.fragments.FragmentClientes;
+import com.example.maestroclientes_v1.fragments.FragmentTipoClientes;
+import com.example.maestroclientes_v1.fragments.FragmentZona;
+
 public class MainActivity extends AppCompatActivity {
 
-    EditText editCodigo, editNombre, editRuc, editZona, editTipo, editEstado;
-    Button btnAgregar;
+    FragmentClientes fragmentClientes = new FragmentClientes();
+    FragmentTipoClientes fragmentTipoClientes = new FragmentTipoClientes();
+    FragmentZona fragmentZona = new FragmentZona();
+
+    private Button btnclientes;
+    private Button btnzona;
+    private Button btntipoClientes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        editCodigo=(EditText)findViewById(R.id.editCodigo);
-        editNombre=(EditText)findViewById(R.id.editNombre);
-        editRuc=(EditText)findViewById(R.id.editRuc);
-        editZona=(EditText)findViewById(R.id.editZona);
-        editTipo=(EditText)findViewById(R.id.editTipo);
-        editEstado=(EditText)findViewById(R.id.editEstado);
-        btnAgregar=(Button)findViewById(R.id.btnAgregar);
 
-        final MaestroClientes clientes=new MaestroClientes(getApplicationContext());
+        getSupportFragmentManager().beginTransaction().replace(
+                R.id.frameLayout, fragmentClientes).commit();
 
-        btnAgregar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clientes.agregarClientes(editCodigo.getText().toString(),editNombre.getText().toString(),editRuc.getText().toString(),editZona.getText().toString(),editTipo.getText().toString(),editEstado.getText().toString());
-                Toast.makeText(getApplicationContext(),"SE AGREGÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
-            }
-        });
+        //cargando datos layout
+        btnclientes = findViewById(R.id.buttonFragmentClientes);
+        btnzona = findViewById(R.id.buttonFragmentZona);
+        btntipoClientes = findViewById(R.id.buttonFragmentTiposClientes);
+
+        btnclientes.setOnClickListener(eventClientes);
+        btnzona.setOnClickListener(eventZona);
+        btntipoClientes.setOnClickListener(eventTipoClientes);
+
     }
+
+    View.OnClickListener eventClientes = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            getSupportFragmentManager().beginTransaction().replace(
+                    R.id.frameLayout, fragmentClientes).commit();
+        }
+    };
+
+    View.OnClickListener eventZona = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            getSupportFragmentManager().beginTransaction().replace(
+                    R.id.frameLayout, fragmentZona).commit();
+        }
+    };
+
+    View.OnClickListener eventTipoClientes = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            getSupportFragmentManager().beginTransaction().replace(
+                    R.id.frameLayout, fragmentTipoClientes).commit();
+        }
+    };
+
 }
