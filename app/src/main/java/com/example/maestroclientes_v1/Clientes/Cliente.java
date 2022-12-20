@@ -17,4 +17,14 @@ public class Cliente {
         this.tipo = tipo;
         this.estado = estado;
     }
+
+    @Override
+    public String toString() {
+        return  "Codigo: " + codigo + '\n' +
+                "Name:   " + name + '\n' +
+                "RUC:    " + ruc + '\n' +
+                "Zona:   " + zona + '\n' +
+                "Tipo:   " + tipo + '\n' +
+                "Estado: " + estado + '\n';
+    }
 }

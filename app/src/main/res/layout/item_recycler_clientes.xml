@@ -13,7 +13,7 @@
         android:layout_marginRight="30dp">
 
         <com.example.maestroclientes_v1.View.Contenedor
-            android:id="@+id/contenedor"
+            android:id="@+id/contenedorItemCliente"
             android:layout_width="308dp"
             android:layout_height="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -26,10 +26,11 @@
             android:layout_width="182dp"
             android:layout_height="30dp"
             android:layout_marginStart="12dp"
+            android:textColor="@color/black"
             android:text="Cliente n"
-            app:layout_constraintBottom_toBottomOf="@+id/contenedor"
-            app:layout_constraintStart_toStartOf="@+id/contenedor"
-            app:layout_constraintTop_toTopOf="@+id/contenedor"
+            app:layout_constraintBottom_toBottomOf="@+id/contenedorItemCliente"
+            app:layout_constraintStart_toStartOf="@+id/contenedorItemCliente"
+            app:layout_constraintTop_toTopOf="@+id/contenedorItemCliente"
             app:layout_constraintVertical_bias="1.0" />
 
         <ImageButton
@@ -38,9 +39,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:background="@color/teal_200"
-            app:layout_constraintBottom_toBottomOf="@+id/contenedor"
+            app:layout_constraintBottom_toBottomOf="@+id/contenedorItemCliente"
             app:layout_constraintStart_toEndOf="@+id/textNombreClienteTabla"
-            app:layout_constraintTop_toTopOf="@+id/contenedor"
+            app:layout_constraintTop_toTopOf="@+id/contenedorItemCliente"
             app:layout_constraintVertical_bias="0.535"
             app:srcCompat="@android:drawable/ic_menu_edit" />
 
@@ -49,10 +50,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/teal_200"
-            app:layout_constraintBottom_toBottomOf="@+id/contenedor"
-            app:layout_constraintEnd_toEndOf="@+id/contenedor"
+            app:layout_constraintBottom_toBottomOf="@+id/contenedorItemCliente"
+            app:layout_constraintEnd_toEndOf="@+id/contenedorItemCliente"
             app:layout_constraintStart_toEndOf="@+id/btnEditCliente"
-            app:layout_constraintTop_toTopOf="@+id/contenedor"
+            app:layout_constraintTop_toTopOf="@+id/contenedorItemCliente"
             app:srcCompat="@android:drawable/ic_menu_delete" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

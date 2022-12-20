@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.maestroclientes_v1.Clientes.AdapterClientes;
+import com.example.maestroclientes_v1.Clientes.Cliente;
 import com.example.maestroclientes_v1.R;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class FragmentClientes extends Fragment {
 
 
     //por ahora string mas adelante clase Clientes
-    private ArrayList<String> listClientes;
+    private ArrayList<Cliente> listClientes;
     private RecyclerView recycler;
 
     private Button btnAddClient;
@@ -104,12 +105,12 @@ public class FragmentClientes extends Fragment {
                 RecyclerView.VERTICAL, false));
         //llenando datos de comunidad
         listClientes = new ArrayList<>();
-        for (int i = 0; i < 15; i++){
-            listClientes.add("Cliente "+ (i+1));
-        }
+        //llenado de datos
+        llenadoDatos(); //despues eliminar
+
         //enviamos los datos al adaptador de Comunidad
         //le damos el getActivity para que se pueda cambiar de fragment en el adapter
-        AdapterClientes adapter = new AdapterClientes(listClientes);
+        AdapterClientes adapter = new AdapterClientes(listClientes, getActivity());
         //por ultimo al recycler le enviamos el adaptador de la Comunidad
         recycler.setAdapter(adapter);
         ///===================================
@@ -130,4 +131,70 @@ public class FragmentClientes extends Fragment {
                     Toast.LENGTH_LONG).show();
         }
     };
+
+
+
+    private void llenadoDatos() {
+
+        listClientes.add(new Cliente("CLI-0001",
+                "Luis Rodriguez",
+                "12345678",
+                "A-4",
+                "Empleado",
+                "Activo"));
+        listClientes.add(new Cliente("CLI-0002",
+                "Diego Alvarez",
+                "12345678",
+                "A-4",
+                "Empleado",
+                "Activo"));
+        listClientes.add(new Cliente("CLI-0003",
+                "Juan Flores",
+                "12345678",
+                "A-4",
+                "Empleado",
+                "Activo"));
+        listClientes.add(new Cliente("CLI-0004",
+                "Pedro Quispe",
+                "12345678",
+                "A-4",
+                "Empleado",
+                "Activo"));
+        listClientes.add(new Cliente("CLI-0005",
+                "Roberto Choque",
+                "12345678",
+                "A-4",
+                "Empleado",
+                "Activo"));
+        listClientes.add(new Cliente("CLI-0006",
+                "Ernesto Villalba",
+                "12345678",
+                "A-4",
+                "Empleado",
+                "Activo"));
+        listClientes.add(new Cliente("CLI-0007",
+                "Victor Chuctaya",
+                "12345678",
+                "A-4",
+                "Empleado",
+                "Activo"));
+        listClientes.add(new Cliente("CLI-0008",
+                "Enrique Ruiz",
+                "12345678",
+                "A-4",
+                "Empleado",
+                "Activo"));
+        listClientes.add(new Cliente("CLI-0009",
+                "Alexandra Salinas",
+                "12345678",
+                "A-4",
+                "Empleado",
+                "Activo"));
+        listClientes.add(new Cliente("CLI-0010",
+                "Paola Flores",
+                "12345678",
+                "A-4",
+                "Empleado",
+                "Activo"));
+    }
 }

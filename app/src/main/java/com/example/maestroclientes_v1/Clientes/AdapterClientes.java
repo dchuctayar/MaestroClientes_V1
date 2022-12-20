@@ -1,6 +1,8 @@
 package com.example.maestroclientes_v1.Clientes;
 
-import android.provider.ContactsContract;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,19 +11,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.maestroclientes_v1.R;
+import com.example.maestroclientes_v1.View.Contenedor;
+import com.example.maestroclientes_v1.dialog.DialogDescriptionCliente;
+import com.example.maestroclientes_v1.fragments.FragmentModificarCliente;
 
 import java.util.ArrayList;
 
 public class AdapterClientes extends RecyclerView.Adapter<AdapterClientes.ViewHolderData> {
 
+    private FragmentActivity activity;
     //por ahora string mas adelante clase Clientes
-    private ArrayList<String> listClientes;
+    private ArrayList<Cliente> listClientes;
 
-    public AdapterClientes(ArrayList<String> listClientes) {
+    public AdapterClientes(ArrayList<Cliente> listClientes, FragmentActivity activity) {
         this.listClientes = listClientes;
+        this.activity = activity;
     }
 
     @NonNull
@@ -36,7 +45,7 @@ public class AdapterClientes extends RecyclerView.Adapter<AdapterClientes.ViewHo
     @Override
     public void onBindViewHolder(@NonNull AdapterClientes.ViewHolderData holder, int position) {
         //mas despues cargamos los datos
-        holder.cargarDatos(this.listClientes.get(position));
+        holder.cargarDatos(this.listClientes.get(position), activity);
     }
 
     @Override
@@ -50,6 +59,15 @@ public class AdapterClientes extends RecyclerView.Adapter<AdapterClientes.ViewHo
         private TextView nombreCliente;
         private ImageButton btnEditarCliente;
         private ImageButton btnEliminarCliente;
+        private Contenedor cont;
+
+        private FragmentActivity itemactivity;
+
+        //fragments de los items del recycler========================
+        private FragmentModificarCliente fragmentModificarCliente;
+        //para pasarlo a la edicion
+        Cliente cliente;
+        //===========================================================
 
         public ViewHolderData(@NonNull View itemView) {
             super(itemView);
@@ -59,13 +77,19 @@ public class AdapterClientes extends RecyclerView.Adapter<AdapterClientes.ViewHo
             this.btnEditarCliente = itemView.findViewById(R.id.btnEditCliente);
             this.btnEditarCliente.setOnClickListener(eventEditarCliente);
 
+            this.cont = itemView.findViewById(R.id.contenedorItemCliente);
+            this.cont.setOnClickListener(eventDescriptionCliente);
+
             this.btnEliminarCliente = itemView.findViewById(R.id.btnDeleteCliente);
             this.btnEliminarCliente.setOnClickListener(eventEliminarCliente);
         }
 
-        public void cargarDatos(String nombre) {
+        public void cargarDatos(Cliente cliente,
+                                FragmentActivity activity) {
             //nombre del cliente
-            this.nombreCliente.setText(nombre);
+            this.nombreCliente.setText(cliente.name);
+            this.itemactivity = activity;
+            this.cliente = cliente;
         }
 
         //eventos=============================================================
@@ -76,14 +100,60 @@ public class AdapterClientes extends RecyclerView.Adapter<AdapterClientes.ViewHo
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), "Si funciona editar",
                         Toast.LENGTH_LONG).show();
+
+
+                fragmentModificarCliente = FragmentModificarCliente.newInstance(
+                        cliente.codigo, cliente.name, cliente.ruc,
+                        cliente.zona, cliente.tipo, cliente.estado
+                );
+
+                //ingresamoa al fragment de editar cliente
+                itemactivity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frameLayout, fragmentModificarCliente)
+                        .commit();
             }
         };
 
         private View.OnClickListener eventEliminarCliente = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Si funciona eliminar",
+
+                //Dialogo para confirmar la eliminacion
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                builder.setMessage("Desea eliminar a " + cliente.name + "? ")
+                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                                Toast.makeText(view.getContext(), "Eliminado",
+                                        Toast.LENGTH_LONG).show();
+
+                                //************************************************
+                                //procedemos a eliminar el cliente
+                                //para esto nos conectamos a la base de datos
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss(); //la ventana se cierra
+                            }
+                        });
+                builder.show();
+
+            }
+        };
+
+        //description cliente
+        private View.OnClickListener eventDescriptionCliente = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Descripcion cliente",
                         Toast.LENGTH_LONG).show();
+                DialogDescriptionCliente.newInstance(
+                                cliente.toString())
+                        .show(activity.getSupportFragmentManager(), null);
             }
         };
         //=========================================================================
