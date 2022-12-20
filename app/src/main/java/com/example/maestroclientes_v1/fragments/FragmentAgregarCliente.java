@@ -21,7 +21,7 @@ import com.example.maestroclientes_v1.R;
  */
 public class FragmentAgregarCliente extends Fragment {
 
-    EditText editCodigo, editNombre, editRuc, editZona, editTipo, editEstado;
+    private EditText editCodigo, editNombre, editRuc, editZona, editTipo, editEstado;
     Button btnAgregar;
 
     // TODO: Rename parameter arguments, choose names that match

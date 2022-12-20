@@ -7,8 +7,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.maestroclientes_v1.R;
+import com.example.maestroclientes_v1.sqlite.ClienteHelper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +20,9 @@ import com.example.maestroclientes_v1.R;
  * create an instance of this fragment.
  */
 public class FragmentTipoClientes extends Fragment {
+
+    private EditText editCodigoTipoCliente, editNombreTipoCliente, editEstadoTipoCliente;
+    Button btnAgregarTipoCliente;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +68,25 @@ public class FragmentTipoClientes extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tipo_clientes, container, false);
+        View view = inflater.inflate(R.layout.fragment_tipo_clientes, container, false);
+
+        editCodigoTipoCliente=(EditText)view.findViewById(R.id.editCodigoTipoCliente);
+        editNombreTipoCliente=(EditText)view.findViewById(R.id.editNombreTipoCliente);
+        editEstadoTipoCliente=(EditText)view.findViewById(R.id.editEstadoTipoCliente);
+
+        btnAgregarTipoCliente = view.findViewById(R.id.btnAgregarTipoCliente);
+
+        final ClienteHelper clientes=new ClienteHelper(getActivity());
+
+        //evento agregar
+        btnAgregarTipoCliente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clientes.agregarTipoClientes(editCodigoTipoCliente.getText().toString(),
+                        editNombreTipoCliente.getText().toString(),editEstadoTipoCliente.getText().toString());
+                Toast.makeText(getActivity(),"SE AGREGÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return view;
     }
 }

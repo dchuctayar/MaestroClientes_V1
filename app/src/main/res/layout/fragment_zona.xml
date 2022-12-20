@@ -67,28 +67,28 @@
             android:inputType="textPersonName" />
 
         <Button
-            android:id="@+id/btnAgregar"
+            android:id="@+id/btnAgregarZona"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Agregar" />
 
         <Button
-            android:id="@+id/btnEditar"
+            android:id="@+id/btnEditarZona"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Editar" />
 
         <Button
-            android:id="@+id/btnEliminar"
+            android:id="@+id/btnEliminarZona"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Eliminar" />
 
         <Button
-            android:id="@+id/btnMostrar"
+            android:id="@+id/btnMostrarZona"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

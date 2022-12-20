@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class ClienteHelper extends SQLiteOpenHelper {
     private static final String NOMBRE_BD="clientes.bd";
-    private static final int VERSION_BD=2;
+    private static final int VERSION_BD=3;
 
     private static final String ZONA = "CREATE TABLE ZONA (" +
             "CODIGO TEXT PRIMARY KEY NOT NULL, " +
@@ -79,7 +79,7 @@ public class ClienteHelper extends SQLiteOpenHelper {
     public void agregarTipoClientes(String codigo, String nombre,String estado){
         SQLiteDatabase bd=getWritableDatabase();
         if(bd!=null){
-            bd.execSQL("INSERT INTO TIPO_CLIENTES VALUES(" +
+            bd.execSQL("INSERT INTO TIPO_CLIENTE VALUES(" +
                     "'"+codigo+"'," +
                     "'"+nombre+"'," +
                     "'"+estado+"'" +
