@@ -44,8 +44,14 @@ public class ActivityAutenticacion extends AppCompatActivity {
                 Log.d(TAG, "valida," + usuario + "," + password);
                 txtMensaje.setText("Autenticacion valida");
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                //startActivity(intent);
+
+                //sacamos de la pila a la activity de autenticacion////////
+                startActivity(new Intent(getBaseContext(), MainActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+                finish();
+                ///////////////////////////////////////////////////////////
 
             } else {
                 txtMensaje.setText("Autenticacion no valida");

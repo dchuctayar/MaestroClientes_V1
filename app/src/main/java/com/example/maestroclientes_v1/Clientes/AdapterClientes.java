@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.maestroclientes_v1.R;
 import com.example.maestroclientes_v1.View.Contenedor;
 import com.example.maestroclientes_v1.dialog.DialogDescriptionCliente;
+import com.example.maestroclientes_v1.fragments.FragmentClientes;
 import com.example.maestroclientes_v1.fragments.FragmentModificarCliente;
 import com.example.maestroclientes_v1.sqlite.ClienteHelper;
 
@@ -66,6 +67,7 @@ public class AdapterClientes extends RecyclerView.Adapter<AdapterClientes.ViewHo
 
         //fragments de los items del recycler========================
         private FragmentModificarCliente fragmentModificarCliente;
+        private FragmentClientes fragmentClientes;
         //para pasarlo a la edicion
         Cliente cliente;
         //===========================================================
@@ -132,6 +134,9 @@ public class AdapterClientes extends RecyclerView.Adapter<AdapterClientes.ViewHo
                                 //para esto nos conectamos a la base de datos
                                 final ClienteHelper clientes=new ClienteHelper(activity);
                                 clientes.eliminarClientes(cliente.getCodigo());
+                                //tambien lo ponemos en la lista del fragment
+                                //por mientras para no cargar el fragment otra vez
+                                cliente.setEstado("Eliminado");
                                 //***********************************************
                             }
                         })

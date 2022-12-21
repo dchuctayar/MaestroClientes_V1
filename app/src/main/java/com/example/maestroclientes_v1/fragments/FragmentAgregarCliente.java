@@ -92,6 +92,7 @@ public class FragmentAgregarCliente extends Fragment {
         spEstado.setOnItemSelectedListener(eventSpinnerRegEst);
     }
 
+    //agregar cliente
     private View.OnClickListener eventAgregarCliente = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -107,6 +108,11 @@ public class FragmentAgregarCliente extends Fragment {
 
             Toast.makeText(getActivity(),"SE AGREGÓ CORRECTAMENTE",
                     Toast.LENGTH_SHORT).show();
+            //nos dirigimos al fragemnt de inicio********************************
+            FragmentClientes fragmentClientes = new FragmentClientes();
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frameLayout, fragmentClientes).commit();
+            //******************************************************************
         }
     };
 

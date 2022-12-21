@@ -7,12 +7,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.maestroclientes_v1.R;
 import com.example.maestroclientes_v1.sqlite.ClienteHelper;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,8 +25,11 @@ import com.example.maestroclientes_v1.sqlite.ClienteHelper;
  */
 public class FragmentTipoClientes extends Fragment {
 
-    private EditText editCodigoTipoCliente, editNombreTipoCliente, editEstadoTipoCliente;
+    private EditText editCodigoTipoCliente, editNombreTipoCliente;
+    private Spinner spTipoCliente;
     Button btnAgregarTipoCliente;
+    Button btnModificarTipoCliente;
+    Button btnEliminarTipoCliente;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,22 +79,70 @@ public class FragmentTipoClientes extends Fragment {
 
         editCodigoTipoCliente=(EditText)view.findViewById(R.id.editCodigoTipoCliente);
         editNombreTipoCliente=(EditText)view.findViewById(R.id.editNombreTipoCliente);
-        editEstadoTipoCliente=(EditText)view.findViewById(R.id.editEstadoTipoCliente);
 
+        llenandoSpinner(view);
+
+        //botones
         btnAgregarTipoCliente = view.findViewById(R.id.btnAgregarTipoCliente);
+        btnModificarTipoCliente = view.findViewById(R.id.btnEditarTipoCliente);
+        btnEliminarTipoCliente = view.findViewById(R.id.btnEliminarTipoCliente);
 
-        final ClienteHelper clientes=new ClienteHelper(getActivity());
-
-        //evento agregar
-        btnAgregarTipoCliente.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clientes.agregarTipoClientes(editCodigoTipoCliente.getText().toString(),
-                        editNombreTipoCliente.getText().toString(),editEstadoTipoCliente.getText().toString());
-
-                Toast.makeText(getActivity(),"SE AGREGÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
-            }
-        });
+        //eventos
+        btnAgregarTipoCliente.setOnClickListener(eventAddTypeClient);
+        btnModificarTipoCliente.setOnClickListener(eventEditarTypeClient);
+        btnEliminarTipoCliente.setOnClickListener(eventDeleteTypeClient);
         return view;
     }
+
+    ArrayList<String > listOpcEstReg = new ArrayList<>();
+    private void llenandoSpinner(View view) {
+        listOpcEstReg.add("Activo");
+        listOpcEstReg.add("Inactivo");
+        listOpcEstReg.add("Eliminado");
+
+        spTipoCliente = view.findViewById(R.id.spinnerEstadoTipoCliente);
+
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(
+                view.getContext(), android.R.layout.simple_spinner_item, listOpcEstReg);
+        spTipoCliente.setAdapter(adapter);
+    }
+
+    private View.OnClickListener eventAddTypeClient = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            final ClienteHelper clientes=new ClienteHelper(getActivity());
+            String estadoRegistro = spTipoCliente.getSelectedItem().toString();
+
+            clientes.agregarTipoClientes(editCodigoTipoCliente.getText().toString(),
+                    editNombreTipoCliente.getText().toString(),estadoRegistro);
+
+            Toast.makeText(getActivity(),"SE AGREGÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private View.OnClickListener eventEditarTypeClient = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            final ClienteHelper clientes=new ClienteHelper(getActivity());
+            String estadoRegistro = spTipoCliente.getSelectedItem().toString();
+
+            clientes.editarTipoCliente(editCodigoTipoCliente.getText().toString(),
+                    editNombreTipoCliente.getText().toString(),estadoRegistro);
+
+            Toast.makeText(getActivity(),"SE EDITO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private View.OnClickListener eventDeleteTypeClient = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            final ClienteHelper clientes=new ClienteHelper(getActivity());
+
+            clientes.eliminarTipoCliente(editCodigoTipoCliente.getText().toString());
+
+            spTipoCliente.setSelection(2); //lo damos como eliminado en el estado
+
+            Toast.makeText(getActivity(),"SE ELIMINO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+        }
+    };
 }

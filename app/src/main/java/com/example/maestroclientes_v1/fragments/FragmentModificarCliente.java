@@ -7,12 +7,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.maestroclientes_v1.R;
 import com.example.maestroclientes_v1.sqlite.ClienteHelper;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,8 +26,9 @@ import com.example.maestroclientes_v1.sqlite.ClienteHelper;
 public class FragmentModificarCliente extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
-    private EditText editCodigo, editNombre, editRuc, editZona, editTipo, editEstado;
+    private EditText editCodigo, editNombre, editRuc, editZona, editTipo;
     Button btnModificar;
+    private Spinner spEstado;  //spinner
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "codigo";
@@ -85,9 +90,10 @@ public class FragmentModificarCliente extends Fragment {
         editRuc = view.findViewById(R.id.editRuc);
         editZona = view.findViewById(R.id.editZona);
         editTipo = view.findViewById(R.id.editTipo);
-        editEstado = view.findViewById(R.id.editEstado);
         btnModificar = view.findViewById(R.id.btnModificar);
 
+        //spinner
+        llenandoSpinner(view);
         //se colocan los datos del cliente solicitado
         llenarformulario();
 
@@ -95,6 +101,19 @@ public class FragmentModificarCliente extends Fragment {
         btnModificar.setOnClickListener(eventModificarCliente);
 
         return view;
+    }
+
+    ArrayList<String > listOpcEstReg = new ArrayList<>();
+    private void llenandoSpinner(View view) {
+        listOpcEstReg.add("Activo");
+        listOpcEstReg.add("Inactivo");
+        listOpcEstReg.add("Eliminado");
+
+        spEstado= view.findViewById(R.id.spinnerEditEstado);
+
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(
+                view.getContext(), android.R.layout.simple_spinner_item, listOpcEstReg);
+        spEstado.setAdapter(adapter);
     }
 
     private void llenarformulario() {
@@ -106,19 +125,38 @@ public class FragmentModificarCliente extends Fragment {
         editRuc.setText(this.ruc);
         editZona.setText(this.zona);
         editTipo.setText(this.tipo);
-        editEstado.setText(this.estado);
+
+        //Colocando el valor en la lista desplegable(spinner)
+        if (this.estado.equals("Activo")){
+            spEstado.setSelection(0);
+        }else{
+            if (this.estado.equals("Inactivo")){
+                spEstado.setSelection(1);
+            }else{
+                spEstado.setSelection(2);
+            }
+        }
+
     }
 
     private View.OnClickListener eventModificarCliente = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Toast.makeText(getActivity(), "Guardado", Toast.LENGTH_LONG).show();
+            String estadoRegistro = spEstado.getSelectedItem().toString();
 
             //aqui se llama al ClientHelper para guardarlo en la base de datos
             final ClienteHelper clientes=new ClienteHelper(getActivity());
             clientes.editarClientes(editCodigo.getText().toString(), editNombre.getText().toString(),
                     editRuc.getText().toString(), editZona.getText().toString(),
-                    editTipo.getText().toString(), editEstado.getText().toString());
+                    editTipo.getText().toString(), estadoRegistro);
+
+            //nos dirigimos al fragemnt de inicio********************************
+            FragmentClientes fragmentClientes = new FragmentClientes();
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frameLayout, fragmentClientes).commit();
+            //******************************************************************
+
         }
     };
 

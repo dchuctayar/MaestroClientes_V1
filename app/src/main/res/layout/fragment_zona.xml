@@ -58,13 +58,11 @@
             android:layout_marginTop="20dp"
             android:text="ESTADO DE REGISTRO" />
 
-        <EditText
-            android:id="@+id/editEstado"
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/spinnerEstadoZona"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:inputType="textPersonName" />
+            android:layout_marginTop="20dp"/>
 
         <Button
             android:id="@+id/btnAgregarZona"

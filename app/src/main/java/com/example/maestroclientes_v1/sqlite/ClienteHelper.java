@@ -145,6 +145,27 @@ public class ClienteHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void editarTipoCliente(String codigo, String nombre, String estado){
+        SQLiteDatabase bd=getWritableDatabase();
+        if(bd!=null){
+            bd.execSQL("UPDATE TIPO_CLIENTE SET "+
+                    "NOMBRE='"+nombre+"', " +
+                    "ESTADO='"+estado+"' " +
+                    "WHERE CODIGO='"+ codigo +"'");
+            bd.close();
+        }
+    }
+
+    public void eliminarTipoCliente(String codigo){
+        SQLiteDatabase bd=getWritableDatabase();
+        if(bd!=null){
+            bd.execSQL("UPDATE TIPO_CLIENTE SET "+
+                    "ESTADO='Eliminado' " +
+                    "WHERE CODIGO='"+ codigo +"'");
+            bd.close();
+        }
+    }
+
     //CRUD ZONA===========================================================
     public void agregarZona(String codigo, String nombre,String estado){
         SQLiteDatabase bd=getWritableDatabase();
@@ -155,6 +176,25 @@ public class ClienteHelper extends SQLiteOpenHelper {
                     "'"+estado+"'" +
                     ")"
             );
+            bd.close();
+        }
+    }
+    public void editarZona(String codigo, String nombre,String estado){
+        SQLiteDatabase bd=getWritableDatabase();
+        if(bd!=null){
+            bd.execSQL("UPDATE ZONA SET " +
+                    "NOMBRE='"+nombre+"'," +
+                    "ESTADO='"+estado+"' "+
+                    "WHERE CODIGO='"+ codigo +"'");
+            bd.close();
+        }
+    }
+    public void eliminarZona(String codigo){
+        SQLiteDatabase bd=getWritableDatabase();
+        if(bd!=null){
+            bd.execSQL("UPDATE ZONA SET " +
+                    "ESTADO='Eliminado' "+
+                    "WHERE CODIGO='"+ codigo +"'");
             bd.close();
         }
     }

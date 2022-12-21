@@ -7,12 +7,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.maestroclientes_v1.R;
 import com.example.maestroclientes_v1.sqlite.ClienteHelper;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,8 +25,11 @@ import com.example.maestroclientes_v1.sqlite.ClienteHelper;
  */
 public class FragmentZona extends Fragment {
 
-    private EditText editCodigo, editNombre, editEstado;
+    private EditText editCodigo, editNombre;
+    private Spinner spEstadoZona;
     Button btnAgregarZona;
+    Button btnEditarZona;
+    Button btnEliminarZona;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -70,25 +77,63 @@ public class FragmentZona extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_zona, container, false);
 
-
         editCodigo=(EditText)view.findViewById(R.id.editCodigo);
         editNombre=(EditText)view.findViewById(R.id.editNombre);
-        editEstado=(EditText)view.findViewById(R.id.editEstado);
+
+        llenandoSpinner(view);
 
         btnAgregarZona = view.findViewById(R.id.btnAgregarZona);
-
-        final ClienteHelper clientes=new ClienteHelper(getActivity());
+        btnEditarZona = view.findViewById(R.id.btnEditarZona);
+        btnEliminarZona = view.findViewById(R.id.btnEliminarZona);
 
         //evento agregar
-        btnAgregarZona.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clientes.agregarZona(editCodigo.getText().toString(),
-                        editNombre.getText().toString(),editEstado.getText().toString());
-                Toast.makeText(getActivity(),"SE AGREGÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
-            }
-        });
+        btnAgregarZona.setOnClickListener(eventAgregarZona);
+        btnEditarZona.setOnClickListener(eventEditarZona);
+        btnEliminarZona.setOnClickListener(eventEliminarZona);
 
         return view;
     }
+
+    ArrayList<String > listOpcEstReg = new ArrayList<>();
+    private void llenandoSpinner(View view) {
+        listOpcEstReg.add("Activo");
+        listOpcEstReg.add("Inactivo");
+        listOpcEstReg.add("Eliminado");
+
+        spEstadoZona=view.findViewById(R.id.spinnerEstadoZona);
+
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(
+                view.getContext(), android.R.layout.simple_spinner_item, listOpcEstReg);
+        spEstadoZona.setAdapter(adapter);
+    }
+
+    View.OnClickListener eventAgregarZona = new View.OnClickListener() {
+        final ClienteHelper clientes=new ClienteHelper(getActivity());
+        String estadoRegistro = spEstadoZona.getSelectedItem().toString();
+        @Override
+        public void onClick(View view) {
+            clientes.agregarZona(editCodigo.getText().toString(),
+                    editNombre.getText().toString(),estadoRegistro);
+            Toast.makeText(getActivity(),"SE AGREGÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    View.OnClickListener eventEditarZona = new View.OnClickListener() {
+        final ClienteHelper clientes=new ClienteHelper(getActivity());
+        String estadoRegistro = spEstadoZona.getSelectedItem().toString();
+        @Override
+        public void onClick(View view) {
+            clientes.editarZona(editCodigo.getText().toString(),
+                    editNombre.getText().toString(),estadoRegistro);
+            Toast.makeText(getActivity(),"SE EDITO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+        }
+    };
+    View.OnClickListener eventEliminarZona = new View.OnClickListener() {
+        final ClienteHelper clientes=new ClienteHelper(getActivity());
+        @Override
+        public void onClick(View view) {
+            clientes.eliminarZona(editCodigo.getText().toString());
+            Toast.makeText(getActivity(),"SE ELIMINO CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+        }
+    };
 }
