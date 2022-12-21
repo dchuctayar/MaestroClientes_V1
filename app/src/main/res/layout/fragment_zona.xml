@@ -60,9 +60,8 @@
 
         <Spinner
             android:id="@+id/spinnerEstadoZona"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="30dp"/>
 
         <Button
             android:id="@+id/btnAgregarZona"
@@ -84,12 +83,5 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Eliminar" />
-
-        <Button
-            android:id="@+id/btnMostrarZona"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Mostrar" />
     </LinearLayout>
 </LinearLayout>

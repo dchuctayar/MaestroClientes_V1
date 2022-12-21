@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //getSupportFragmentManager().beginTransaction().replace(
-          //      R.id.frameLayout, fragmentClientes).addToBackStack(null).commit();
-/*
+        getSupportFragmentManager().beginTransaction().replace(
+                R.id.frameLayout, fragmentClientes).addToBackStack(null).commit();
+
         //cargando datos layout
         btnclientes = findViewById(R.id.buttonFragmentClientes);
         btnzona = findViewById(R.id.buttonFragmentZona);
@@ -46,22 +46,22 @@ public class MainActivity extends AppCompatActivity {
         btnclientes.setOnClickListener(eventClientes);
         btnzona.setOnClickListener(eventZona);
         btntipoClientes.setOnClickListener(eventTipoClientes);
-*/
+
     }
 
     View.OnClickListener eventClientes = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            //getSupportFragmentManager().beginTransaction().replace(
-              //      R.id.frameLayout, fragmentClientes).addToBackStack(null).commit();
+            getSupportFragmentManager().beginTransaction().replace(
+                    R.id.frameLayout, fragmentClientes).addToBackStack(null).commit();
         }
     };
 
     View.OnClickListener eventZona = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            //getSupportFragmentManager().beginTransaction().replace(
-              //      R.id.frameLayout, fragmentZona).addToBackStack(null).commit();
+            getSupportFragmentManager().beginTransaction().replace(
+                    R.id.frameLayout, fragmentZona).addToBackStack(null).commit();
         }
     };
 
@@ -69,12 +69,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
-            //getSupportFragmentManager().beginTransaction().replace(
-              //      R.id.frameLayout, fragmentTipoClientes).addToBackStack(null).commit();
+            getSupportFragmentManager().beginTransaction().replace(
+                    R.id.frameLayout, fragmentTipoClientes).addToBackStack(null).commit();
         }
     };
 
-/*
     //boton de atras
     // dialogo para salir de la app
     @Override
@@ -89,5 +88,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-*/
+
 }
