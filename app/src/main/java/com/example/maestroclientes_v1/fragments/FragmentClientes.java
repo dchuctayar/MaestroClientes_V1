@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.maestroclientes_v1.Clientes.AdapterClientes;
 import com.example.maestroclientes_v1.Clientes.Cliente;
 import com.example.maestroclientes_v1.R;
+import com.example.maestroclientes_v1.sqlite.ClienteHelper;
 
 import java.util.ArrayList;
 
@@ -102,10 +103,10 @@ public class FragmentClientes extends Fragment {
         //para cargar una lista vertical
         recycler.setLayoutManager(new LinearLayoutManager(getActivity(),
                 RecyclerView.VERTICAL, false));
-        //llenando datos de clientes
-        listClientes = new ArrayList<>();
-        //llenado de datos
-        llenadoDatos(); //despues eliminar
+
+        //conexion con la base de datos
+        final ClienteHelper clientes=new ClienteHelper(getActivity());
+        listClientes = clientes.mostrarClientes();
 
         //enviamos los datos al adaptador de Clientes
         //le damos el getActivity para que se pueda cambiar de fragment en el adapter
@@ -177,69 +178,4 @@ public class FragmentClientes extends Fragment {
 
         }
     };
-    //*******************************************************************************
-
-    private void llenadoDatos() {
-
-        listClientes.add(new Cliente("CLI-0001",
-                "Luis Rodriguez",
-                "12345678",
-                "A-4",
-                "Empleado",
-                "Activo"));
-        listClientes.add(new Cliente("CLI-0002",
-                "Diego Alvarez",
-                "12345678",
-                "A-4",
-                "Empleado",
-                "Activo"));
-        listClientes.add(new Cliente("CLI-0003",
-                "Juan Flores",
-                "12345678",
-                "A-4",
-                "Empleado",
-                "Activo"));
-        listClientes.add(new Cliente("CLI-0004",
-                "Pedro Quispe",
-                "12345678",
-                "A-4",
-                "Empleado",
-                "Activo"));
-        listClientes.add(new Cliente("CLI-0005",
-                "Roberto Choque",
-                "12345678",
-                "A-4",
-                "Empleado",
-                "Activo"));
-        listClientes.add(new Cliente("CLI-0006",
-                "Ernesto Villalba",
-                "12345678",
-                "A-4",
-                "Empleado",
-                "Activo"));
-        listClientes.add(new Cliente("CLI-0007",
-                "Victor Chuctaya",
-                "12345678",
-                "A-4",
-                "Empleado",
-                "Activo"));
-        listClientes.add(new Cliente("CLI-0008",
-                "Enrique Ruiz",
-                "12345678",
-                "A-4",
-                "Empleado",
-                "Activo"));
-        listClientes.add(new Cliente("CLI-0009",
-                "Alexandra Salinas",
-                "12345678",
-                "A-4",
-                "Empleado",
-                "Activo"));
-        listClientes.add(new Cliente("CLI-0010",
-                "Paola Flores",
-                "12345678",
-                "A-4",
-                "Empleado",
-                "Activo"));
-    }
 }

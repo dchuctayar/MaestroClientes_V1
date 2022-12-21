@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.maestroclientes_v1.R;
+import com.example.maestroclientes_v1.sqlite.ClienteHelper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -114,6 +115,10 @@ public class FragmentModificarCliente extends Fragment {
             Toast.makeText(getActivity(), "Guardado", Toast.LENGTH_LONG).show();
 
             //aqui se llama al ClientHelper para guardarlo en la base de datos
+            final ClienteHelper clientes=new ClienteHelper(getActivity());
+            clientes.editarClientes(editCodigo.getText().toString(), editNombre.getText().toString(),
+                    editRuc.getText().toString(), editZona.getText().toString(),
+                    editTipo.getText().toString(), editEstado.getText().toString());
         }
     };
 

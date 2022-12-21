@@ -84,6 +84,7 @@ public class FragmentTipoClientes extends Fragment {
             public void onClick(View view) {
                 clientes.agregarTipoClientes(editCodigoTipoCliente.getText().toString(),
                         editNombreTipoCliente.getText().toString(),editEstadoTipoCliente.getText().toString());
+
                 Toast.makeText(getActivity(),"SE AGREGÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
             }
         });

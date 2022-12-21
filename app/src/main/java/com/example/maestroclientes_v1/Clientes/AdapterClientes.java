@@ -19,6 +19,7 @@ import com.example.maestroclientes_v1.R;
 import com.example.maestroclientes_v1.View.Contenedor;
 import com.example.maestroclientes_v1.dialog.DialogDescriptionCliente;
 import com.example.maestroclientes_v1.fragments.FragmentModificarCliente;
+import com.example.maestroclientes_v1.sqlite.ClienteHelper;
 
 import java.util.ArrayList;
 
@@ -124,14 +125,14 @@ public class AdapterClientes extends RecyclerView.Adapter<AdapterClientes.ViewHo
                         .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-
-
                                 Toast.makeText(view.getContext(), "Eliminado",
                                         Toast.LENGTH_LONG).show();
-
                                 //************************************************
                                 //procedemos a eliminar el cliente
                                 //para esto nos conectamos a la base de datos
+                                final ClienteHelper clientes=new ClienteHelper(activity);
+                                clientes.eliminarClientes(cliente.getCodigo());
+                                //***********************************************
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {

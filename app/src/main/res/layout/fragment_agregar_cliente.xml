@@ -102,12 +102,10 @@
             android:layout_height="wrap_content"
             android:text="ESTADO DE REGISTRO" />
 
-        <EditText
-            android:id="@+id/editEstado"
+        <Spinner
+            android:id="@+id/spinnerEstado"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName" />
+            android:layout_height="30dp"/>
 
         <Space
             android:layout_width="match_parent"
